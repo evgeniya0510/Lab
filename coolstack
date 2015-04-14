@@ -1,0 +1,99 @@
+#include <stdio.h>
+#define STACK_SIZE 20
+int k = 0;
+int i = 0,a = 0;
+// Описание функции push
+typedef struct 
+{
+	char name;
+}SWEET;
+
+SWEET SWEET_STACK[STACK_SIZE];
+
+void push(SWEET value)
+{
+	if (k != STACK_SIZE)
+	{
+		SWEET_STACK[k] = value;
+		k++;
+	}
+
+	else 
+	{
+		error(&a);
+	}
+
+}
+// Описание функции pop
+SWEET pop(void)
+{
+	if (k != 0)
+	{
+		SWEET temp = SWEET_STACK[k-1];
+		SWEET_STACK[k-1] = {0};
+		k--;
+		return temp;
+	}
+
+	else 
+	{
+		error(&a);
+	}
+}
+
+int error(int *x)
+{
+	*x=*x+1; 
+}
+
+void print_stack(void)
+{
+	for (i = 0; i < STACK_SIZE; i++)
+	{
+		printf("%d ", SWEET_STACK[i]);
+	}
+}
+
+int main()
+{
+
+	SWEET chocolate = {"Chocolate"};
+	SWEET lollipop;
+	SWEET candy ;
+
+	push(chocolate);
+	printf("%s",chocolate.name);
+	print_stack();
+	push(lollipop);
+	printf("%s",lollipop.name);
+	print_stack();
+	push(candy);
+	printf("%s",candy.name);
+	print_stack();
+	if (a == 1)
+	{
+		printf("Oshibka");
+		a=0;
+	}
+	else
+	{
+		print_stack();
+	}
+
+
+
+	for (i = 0; i < 5; i++ )
+		{
+			pop();
+			if (a == 1)
+		{
+		printf("Oshibka");
+		a=0;
+		}
+			else
+		{
+			print_stack();
+		}
+		}
+	return 0;
+}
