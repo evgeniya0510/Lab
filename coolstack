@@ -1,11 +1,13 @@
+#include <string.h>
 #include <stdio.h>
-#define STACK_SIZE 20
+#define STACK_SIZE 5
 int k = 0;
 int i = 0,a = 0;
 // Описание функции push
 typedef struct 
 {
-	char name;
+	char name[20];
+	char aroma[20];
 }SWEET;
 
 SWEET SWEET_STACK[STACK_SIZE];
@@ -30,7 +32,8 @@ SWEET pop(void)
 	if (k != 0)
 	{
 		SWEET temp = SWEET_STACK[k-1];
-		SWEET_STACK[k-1] = {0};
+		strcpy(SWEET_STACK[k-1].name,"");
+		strcpy(SWEET_STACK[k-1].aroma,"");
 		k--;
 		return temp;
 	}
@@ -44,32 +47,53 @@ SWEET pop(void)
 int error(int *x)
 {
 	*x=*x+1; 
+	return *x;
 }
 
 void print_stack(void)
 {
 	for (i = 0; i < STACK_SIZE; i++)
 	{
-		printf("%d ", SWEET_STACK[i]);
+		printf("%d ", SWEET_STACK[i].name);
+		printf("%d ", SWEET_STACK[i].aroma);
 	}
 }
 
 int main()
 {
 
-	SWEET chocolate = {"Chocolate"};
-	SWEET lollipop;
-	SWEET candy ;
+	SWEET chocolate; 
+	SWEET lollipop; 
+	SWEET candy; 
+
+	strcpy(chocolate.name,"Chocolate\n\0");
+	strcpy(lollipop.name,"lollipop\n\0");
+	strcpy(candy.name,"candy\n\0");
+
+	strcpy(chocolate.aroma,"walnut\n\0");
+	strcpy(lollipop.aroma,"strawberry\n\0");
+	strcpy(candy.aroma,"lemon\n\0");
 
 	push(chocolate);
 	printf("%s",chocolate.name);
+	printf("%s",chocolate.aroma);
 	print_stack();
+	
+
 	push(lollipop);
 	printf("%s",lollipop.name);
+	printf("%s",lollipop.aroma);
 	print_stack();
+
+
+
+
 	push(candy);
 	printf("%s",candy.name);
+	printf("%s",candy.aroma);
 	print_stack();
+	
+
 	if (a == 1)
 	{
 		printf("Oshibka");
@@ -82,18 +106,18 @@ int main()
 
 
 
-	for (i = 0; i < 5; i++ )
+	for (i = 0; i < 6; i++ )
+	{
+		pop();
+		if (a == 1)
 		{
-			pop();
-			if (a == 1)
-		{
-		printf("Oshibka");
-		a=0;
+			printf("Oshibka");
+			a=0;
 		}
-			else
+		else
 		{
 			print_stack();
 		}
-		}
+	}
 	return 0;
 }
