@@ -1,6 +1,6 @@
 #include <stdio.h>
-#define TURN_SIZE 3
-int turn[3];
+#define TURN_SIZE 5
+int turn[5];
 int k = 0;
 int i = 0,a = 0;
 // Описание функции push
@@ -26,15 +26,11 @@ int pop(void)
 		turn[k-1] = 0;
 		return temp;
 	}
-
-	else 
-	{
-		error(&a);
-	}
 }
 int error(int *x)
 {
-	*x=*x+1; 
+ *x=*x+1; 
+ return *x;
 }
 
 void print_turn(void)
@@ -44,43 +40,34 @@ void print_turn(void)
 		printf("%d ", turn[i]);
 	}
 }
+
  void sdvig (void)
  {
-	for(i = 0;i < 4;i++)
+	for(i = 0;i < TURN_SIZE;i++)
 	{
 		turn[i] = turn[i+1];
+
 	}
  }
  int main()
 {
-	for (i = 0; i < 4; i++ )
-	{
-		push(3);
-		if (a == 1)
-		{
-			printf("Oshibka");
-			a=0;
-		}
-		else
-		{
-			print_turn();
-		}
-	}
+	push(2);
+	print_turn();
+	push(2);
+	print_turn();
+	push(2);
+	print_turn();
+	push(2);
 	
 
-	for (i = 0; i < 4; i++ )
-	{
-		pop();
-		sdvig ();
-		if (a == 1)
-		{
-			printf("Oshibka");
-			a=0;
-		}
-		else
-		{
-			print_turn();
-		}
-	}
+	pop();
+	sdvig();
+	print_turn();
+	pop();
+	sdvig();
+	print_turn();
+	pop();
+	sdvig();
+	print_turn();
 return 0;
 }
