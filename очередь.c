@@ -14,18 +14,28 @@ void push(int value)
 	else 
 	{
 		error(&a);
+		printf ("Oshibka");
+		a = 0;
 	}
 }
 
 // Описание функции pop
 int pop(void)
 {
-	if (k != 0);
+	if (k = 0)
 	{
-		int temp = turn[k-1];
-		turn[k-1] = 0;
+		int temp = turn[k];
+		turn[k] = 0;
+		
+		for(i = 0;i < TURN_SIZE;i++)
+		{
+			turn[i] = turn[i+1];
+		}
 		return temp;
+		int d;
+		if (d>)
 	}
+
 }
 int error(int *x)
 {
@@ -41,33 +51,40 @@ void print_turn(void)
 	}
 }
 
- void sdvig (void)
- {
-	for(i = 0;i < TURN_SIZE;i++)
-	{
-		turn[i] = turn[i+1];
 
-	}
- }
  int main()
 {
-	push(2);
+	push(1);
 	print_turn();
 	push(2);
 	print_turn();
-	push(2);
+	push(3);
 	print_turn();
-	push(2);
+	push(4);
+	print_turn();
+	push(5);
+	print_turn();
+	push(5);
+	print_turn();
 	
 
 	pop();
-	sdvig();
+	
 	print_turn();
 	pop();
-	sdvig();
+
 	print_turn();
 	pop();
-	sdvig();
+	
+	print_turn();
+	pop();
+	
+	print_turn();
+	pop();
+	
+	print_turn();
+	pop();
+	
 	print_turn();
 return 0;
 }
