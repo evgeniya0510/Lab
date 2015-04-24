@@ -1,50 +1,57 @@
 #include <stdio.h>
-#define STACK_SIZE 3
-int stack[3];
+#define STACK_TURN 3
+int turn[3];
 int k = 0;
 int i = 0,a = 0;
 // Описание функции push
 void push(int value)
 {
-if (k != STACK_SIZE)
-{
-stack[k] = value;
-k++;
-}
+	if (k != STACK_TURN)
+	{
+		turn[k] = value;
+		k++;
+	}
 
-else 
-{
-error(&a);
-}
+	else 
+	{
+		error(&a);
+	}
 
 }
 // Описание функции pop
 int pop(void)
 {
-if (k != 0)
-{
-int temp = stack[k-1];
-stack[k-1] = NULL;
-k--;
-return temp;
-}
-
-else 
-{
-error(&a);
-}
+	if (k == 0)
+	{
+		int temp = turn[k];
+		turn[k] = 0;
+		
+		for(i = 0;i <= STACK_TURN;i++)
+		{
+			turn[i] = turn[i+1];
+		}
+		return temp;
+	}
+	else
+	{
+		if (turn[0] = 0) 
+		{
+			error(&a);
+		}
+	}
 }
 
 int error(int *x)
 {
-*x=*x+1; 
+	*x=*x+1; 
+	return *x;
 }
 
-void print_stack(void)
+void print_turn(void)
 {
-	for (i = 0; i < STACK_SIZE; i++)
+	for (i = 0; i < STACK_TURN; i++)
 	{
-		printf("%d ", stack[i]);
+		printf("%d ", turn[i]);
 	}
 }
 int main()
@@ -59,12 +66,10 @@ int main()
 		}
 		else
 		{
-			print_stack();
+			print_turn();
 		}
 	}
-	
-
-for (i = 0; i < 5; i++ )
+	for (i = 0; i <= STACK_TURN; i++ )
 	{
 		pop();
 		if (a == 1)
@@ -74,8 +79,8 @@ for (i = 0; i < 5; i++ )
 		}
 		else
 		{
-			print_stack();
+			print_turn();
 		}
 	}
 return 0;
-}
+} 
