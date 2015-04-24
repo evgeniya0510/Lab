@@ -14,8 +14,6 @@ void push(int value)
 	else 
 	{
 		error(&a);
-		printf ("Oshibka");
-		a = 0;
 	}
 }
 
@@ -32,15 +30,18 @@ int pop(void)
 			turn[i] = turn[i+1];
 		}
 		return temp;
-		int d;
-		if (d>)
+		
 	}
-
+	if (turn[0] = 0)
+	{
+		error(&a);
+	}
+	
 }
 int error(int *x)
 {
- *x=*x+1; 
- return *x;
+	*x=*x+1; 
+	return *x;
 }
 
 void print_turn(void)
@@ -52,39 +53,35 @@ void print_turn(void)
 }
 
 
- int main()
+int main()
 {
-	push(1);
-	print_turn();
-	push(2);
-	print_turn();
-	push(3);
-	print_turn();
-	push(4);
-	print_turn();
-	push(5);
-	print_turn();
-	push(5);
-	print_turn();
+	for (i = 0; i < 5; i++ )
+	{
+		push(3);
+		if (a == 1)
+		{
+			printf("Oshibka");
+			a=0;
+		}
+		else
+		{
+			print_turn();
+		}
+	}
 	
 
-	pop();
-	
-	print_turn();
-	pop();
-
-	print_turn();
-	pop();
-	
-	print_turn();
-	pop();
-	
-	print_turn();
-	pop();
-	
-	print_turn();
-	pop();
-	
-	print_turn();
+for (i = 0; i < 5; i++ )
+	{
+		pop();
+		if (a == 1)
+		{
+			printf("Oshibka");
+			a=0;
+		}
+		else
+		{
+			print_turn();
+		}
+	}
 return 0;
 }
