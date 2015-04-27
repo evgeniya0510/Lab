@@ -1,0 +1,18 @@
+#include <stdio.h>
+int mas[5];
+int n,i;
+int recursion()
+{
+	mas[i] = i;
+	i++;
+	if (i<6)
+	{
+		recursion();
+	}
+}
+int main()
+{
+	recursion();
+	n = mas[1]*mas[2]*mas[3]*mas[4]*mas[5];
+	printf("5! = %i",n);
+}
