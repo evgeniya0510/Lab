@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdint.h>
+#include <malloc.h>
+#define size 8
+typedef unsigned int unit32_t;
+unit32_t *mas_1;
+int i = 0;
+int k,n = 0,n;
+int puz (void)
+{
+	printf("Vvedite razmer masiva: ");
+	scanf_s("%i", &n);
+	mas_1 = (unit32_t*) malloc(n*sizeof(unit32_t));
+
+	for(i = 0; i < n; i++)
+    {
+		printf("mas_1[%d] = ", i);
+		scanf_s("%i", &mas_1[i]);
+    }
+
+	for (n = 0 ;n < size; n++)
+	{
+		for(i = 0;i < size; i++)
+		{
+			if (mas_1[i] > mas_1[i+1])
+			{
+				k = mas_1[i];
+				mas_1[i] = mas_1[i+1];
+				mas_1[i+1] = k;
+			}
+		}
+	}
+
+	return 0;
+}
+void print_mas_1(void)
+{
+	for (i = 0; i < size; i++)
+	{
+		printf("%i ", mas_1[i]);
+		
+	}
+	printf("\n");
+}
+
+
+
+int main()
+{
+	print_mas_1();
+	puz();
+	print_mas_1();
+	return 0;
+}
