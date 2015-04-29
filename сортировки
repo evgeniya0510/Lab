@@ -1,7 +1,10 @@
+#include <stdio.h>
+#include <stdint.h>
+#include <malloc.h>
 typedef unsigned int unit32_t;
 unit32_t *mas_1;
 int i = 0;
-int k,n,m;
+int k,n,m,d;
 int bubble (void)
 {
 	printf("Vvedite razmer massiva dlya sortirovki bubble: ");
@@ -39,15 +42,63 @@ int bubble (void)
 		printf("%i ", mas_1[i]);
 		
 	}
-	printf("\n=================================");
+	printf("\n=================================\n");
 	 
 	return 0;
 }
+
+
+unit32_t *mas_2;
+ int shell(void)
+ {
+	printf("Vvedite razmer massiva dlya sortirovki shell: ");
+	scanf_s("%i", &n);
+	mas_2 = (unit32_t*) malloc(n*sizeof(unit32_t));
+
+	for(i = 0; i < n; i++)
+    {
+		printf("mas_2[%d] = ", i);
+		scanf_s("%i", &mas_2[i]);
+    }
+	printf("Massiv do sortirovki \n");
+	for (i = 0; i < n; i++)
+	{
+		printf("%i ", mas_2[i]);
+		
+	}
+	printf("\n");
+
+	d = n/2;
+	while (d > 0)
+	{
+		for(i = 0;i < n; i++)
+		{
+			if (mas_2[i] > mas_2[i+d])
+			{
+				k = mas_2[i];
+				mas_2[i] = mas_2[i+d];
+				mas_2[i+d] = k;
+			}
+		}
+		d = d/2;
+	}
+
+	printf("Massiv posle sortirovki \n");
+	for (i = 0; i < n; i++)
+	{
+		printf("%i ", mas_2[i]);
+		
+	}
+	printf("\n=================================\n");
+	 
+	return 0;
+ }
 
 int main()
 {
 	
 	bubble();
+	shell();
 	
 	return 0;
 }
