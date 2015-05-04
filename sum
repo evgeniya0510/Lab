@@ -1,0 +1,29 @@
+
+#include<stdio.h>
+#include<conio.h>
+
+int x,d;
+int Sum;
+void main()
+{
+  scanf("%i", &x);
+  summa(x);
+  printf("%i", Sum);
+}
+
+   //возвращает сумму цифр числа
+int summa (int n)
+{
+	Sum = Sum + n % 10;
+    n = n / 10;
+  
+  if (n != 0)
+  {
+	summa(x);
+	return Sum;
+  }
+  else
+  {
+	  return 0;
+  } 
+}
