@@ -1,0 +1,178 @@
+#include <stdio.h>
+#include <malloc.h>
+#include <time.h>
+#include <stdlib.h>
+typedef unsigned int unit32_t;
+clock_t start, stop;
+unsigned long t;
+unit32_t *mas_1;
+int i = 0;
+int k,n,m,d,h;
+int bubble (void)
+{
+	for (m = 0 ;m < n; m++)
+	{
+		for(i = 0;i < n; i++)
+		{
+			if (mas_1[i] > mas_1[i+1])
+			{
+				k = mas_1[i];
+				mas_1[i] = mas_1[i+1];
+				mas_1[i+1] = k;
+			}
+		}
+	}
+	return 0;
+}
+
+
+unit32_t *mas_2;
+int shell(unit32_t *A, int N)
+{
+	int p,j,k;
+	int t;
+	for(k = N/2; k > 0; k /=2)
+	for(p = k; p < N; p++)
+	{
+		t = A[p];
+		for(j = p; j>=k; j-=k)
+	{
+	if(t < A[j-k])
+	A[j] = A[j-k];
+	else
+	break;
+	}
+	 A[j] = t;
+	}
+	return *A;
+}
+
+unit32_t *mas_3;
+void fast(unit32_t *ar, int L, int R){
+    int i, j, x, buf;
+    x = ar[(L+R)/2];
+    i = L;
+    j = R;
+    do
+    {
+        while(ar[i]<x)
+            i++;
+        while(ar[j]>x)
+            j--;
+        if(i<=j)
+		{
+            buf = ar[i];
+            ar[i] = ar[j];
+            ar[j] = buf;
+            i++;
+            j--;
+        }
+    }
+        while(i<=j);
+ 
+        if(j>L)
+            fast(ar, L, j);
+        if(i<R)
+            fast(ar, i, R);
+    }
+ 
+
+ 
+
+int main()
+{
+	printf("Vvedite razmer massiva dlya sortirovki bubble: ");
+	scanf_s("%i", &n);
+	mas_1 = (unit32_t*) malloc(n*sizeof(unit32_t));
+
+	for(i = 0; i < n; i++)
+    {
+		mas_1[i] = rand();
+    }
+	printf("Massiv do sortirovki \n");
+	for (i = 0; i < n - 1; i++)
+	{
+		printf("%i ", mas_1[i]);
+		
+	}
+	printf("\n");
+
+	start = clock ();
+	bubble ();
+	stop = clock ();
+	
+	printf("Massiv posle sortirovki \n");
+	for (i = 0; i < n; i++)
+	{
+		printf("%i ", mas_1[i]);
+		
+	}
+	printf("\n");
+	printf("Vremya = %i\n ", start - stop);
+	printf("\n=================================\n");
+
+	
+	printf("Vvedite razmer massiva dlya sortirovki shell: ");
+	scanf_s("%i", &n);
+	mas_2 = (unit32_t*) malloc(n*sizeof(unit32_t));
+
+	for(i = 0; i < n - 1; i++)
+    {
+		mas_2[i] = rand();
+    }
+
+	printf("Massiv do sortirovki \n");
+	for (i = 0; i < n; i++)
+	{
+		printf("%i ", mas_2[i]);
+		
+	}
+	printf("\n");
+
+	start = clock ();
+	shell(mas_2, n);
+	stop = clock ();
+	
+
+	printf("Massiv posle sortirovki \n");
+	for (i = 0; i < n; i++)
+	{
+		printf("%i ", mas_2[i]);
+		
+	}
+	printf("\n");
+	printf("Vremya = %i\n ", start - stop);
+	printf("\n=================================\n");
+
+	
+
+
+
+	printf("Vvedite razmer massiva dlya sortirovki Fast: ");
+	scanf_s("%i", &n);
+	mas_3 = (unit32_t*) malloc(n*sizeof(unit32_t));
+
+	for(i = 0; i < n - 1; i++)
+    {
+		mas_3[i] = rand();
+    }
+	printf("Massiv do sortirovki \n");
+	for (i = 0; i < n; i++)
+	{
+		printf("%i ", mas_3[i]);
+		
+	}
+	printf("\n");
+
+	fast(mas_3 , 0, n);
+
+	printf("Massiv posle sortirovki \n");
+	for (i = 0; i < n; i++)
+	{
+		printf("%i ", mas_3[i]);
+		
+	}
+	printf("\n=================================\n");
+	
+	return 0;
+}
