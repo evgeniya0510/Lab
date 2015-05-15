@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <string.h>
+
+#define ASIZE 256
+
+char *k;
+
+int main(int argc, char* argv[])
+{
+	
+    char Text[] = "I just seen a monster, And it lives under my bed It’s got one eye, 2 eyes, 3 eyes, 4 I don’t know really but it could have more";
+    char Find[] = "bed";
+ 
+    printf("haystack: %s\n", Text);
+   	
+    printf("result: %i\n", BoyerMooreHorspool(Text,Find));
+ 
+    return 0;
+}
+	
+//---------------------------------------------------------------------------
+int BoyerMooreHorspool(char *y, char *x)
+{
+        int i,j,k, x_len = 0,y_len = 0;
+        int x_table[256]; // таблица символов
+ 
+        char *p; // указатель на символ
+        for ( p = x; *p; *p++)// подсчет кол-ва символов в needle
+		{
+                ++x_len;
+		}
+        for ( p = y; *p; *p++) // подсчет кол-ва символов в haystack
+		{
+                ++y_len;
+		}
+        if (x_len < y_len) // 
+        {
+                for (i = 0; i < 256; i++) // в таблицу заносится для каждого символа длина needle
+				{
+                        x_table[i] = x_len; 
+				}
+                for (i = 1; i < x_len; i++) // каждому символу из таблицы ставиться в соответствие его порядковый номер из needle
+                        x_table[x[i-1]] = x_len-i;
+ 
+                i = x_len; // i - счетчик текущего последнего символа в haystack 
+                j = i; // j - счетчик в needle кол-ва одинаковых символов (совпадающих с таблицей) с конца 
+ 
+                while (j > 0 && i <= y_len) // если j==0 то совпадение найдено
+                {
+                        j = x_len; // заново выполняем присваивание, чтобы сравнивать строки с конца
+                        k = i; // k - счетчик текущего символа в haystack
+                               // j - счетчик текущего символа в needle
+                        while (j > 0 && y[k-1] == x[j-1]) // сравнение последних симолов
+                        { // если раны, то сравниваем предыдущие
+                                --k;
+                                --j;
+                        }
+                        i+=x_table[y[i-1]]; // сдвигаем шаблон на следующий совпадающий символ из таблицы и haystack
+                        // т.е. в needle ищется (т.е. уже дан в таблице) последний сравниваемый символ из haystack
+                }
+ 
+                if (k > y_len - x_len) // если k выходит за пределы сравнения, то ...
+                        return 0;
+                else return k+1; // иначе k== текущая позиция подстроки needle в строке haystack 
+                // ВНИМАНИЕ! k показывает смещение в haystack, предполагая, что строка начинается с 1 (единицы)
+        }
+        else return 0; // if (needle_len >= haystack_len)
+}
