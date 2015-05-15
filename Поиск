@@ -1,0 +1,131 @@
+#include <stdio.h>
+#include <string.h>
+#include <malloc.h>
+
+#define ASIZE 256
+
+char *k;
+int Text_Size, Fine_Size;
+
+int main(int argc, char* argv[])
+{
+	char Text[] = "I just seen a monster, And it lives under my bed It’s got one eye, 2 eyes, 3 eyes, 4 I don’t know really but it could have more";
+	char Find[] = "seen";
+ 
+    printf("Text: %s\n", Text);
+   	Text_Size = strlen(Text);
+	Fine_Size = strlen(Find);
+    printf("Slovo bed vstretilos v %i simvole \n", BoyerMooreHorspool(Text,Find,Text_Size,Fine_Size));
+	printf("Slovo bed vstretilos v %i simvole \n", seek_substring_KMP(Text,Find,Text_Size,Fine_Size));
+	printf("Slovo bed vstretilos v %i simvole \n", naive(Text,Find,Text_Size,Fine_Size));
+ 
+    return 0;
+}
+	
+//---------------------------------------------------------------------------
+int BoyerMooreHorspool(char *y, char *x, int y_len, int x_len)
+{
+	int i,j,k ;
+	int x_table[256]; // таблица символов
+ 
+    if (x_len < y_len) // 
+    {
+		for (i = 0; i < 256; i++) // в таблицу заносится для каждого символа длина needle
+		{
+			x_table[i] = x_len; 
+		}
+        for (i = 1; i < x_len; i++) // каждому символу из таблицы ставиться в соответствие его порядковый номер из needle
+		{
+			x_table[x[i-1]] = x_len-i;
+		}
+        i = x_len; // i - счетчик текущего последнего символа в haystack 
+        j = i; // j - счетчик в needle кол-ва одинаковых символов (совпадающих с таблицей) с конца 
+ 
+        while (j > 0 && i <= y_len) // если j==0 то совпадение найдено
+        {
+			j = x_len; // заново выполняем присваивание, чтобы сравнивать строки с конца
+			k = i; // k - счетчик текущего символа в haystack
+                               // j - счетчик текущего символа в needle
+			 while (j > 0 && y[k-1] == x[j-1]) // сравнение последних симолов
+			 { // если раны, то сравниваем предыдущие
+				--k;
+				--j;
+			 }
+			 i+=x_table[y[i-1]]; // сдвигаем шаблон на следующий совпадающий символ из таблицы и haystack
+							// т.е. в needle ищется (т.е. уже дан в таблице) последний сравниваемый символ из haystack
+		}
+ 
+		if (k > y_len - x_len) // если k выходит за пределы сравнения, то ...
+		{
+			return 0;
+		}
+        else 
+		{	
+			return k; // иначе k== текущая позиция подстроки needle в строке haystack 
+                // ВНИМАНИЕ! k показывает смещение в haystack, предполагая, что строка начинается с 1 (единицы)
+		}
+	}
+    else 
+	{	
+		return 0; // if (needle_len >= haystack_len)
+	}
+}
+int seek_substring_KMP (char* y, char* x, int N, int M)
+{
+	int i, j;
+	int *d =(int*)malloc(M*sizeof(int)); /* динамический массив длины М*/
+	/* Вычисление префикс-функции */
+	d[0]=0;
+	for(i=1,j=0;i<M;i++)
+	{
+		while(j>0 && x[j]!=x[i])
+		{
+			j = d[j-1];
+		}
+		if(x[j]==x[i])
+		{
+			j++;
+		}
+		d[i]=j;
+	}
+	/* поиск */
+	for(i=0,j=0;i<N; i++)
+	{
+		while(j>0 && x[j]!=y[i])
+		{
+			j=d[j-1];
+		}
+		if(x[j]==y[i])
+		{
+			j++;
+		}
+		if (j==M)
+        {
+			free (d); /* освобождение памяти массива d */
+            return i-j+1;
+        }
+	}
+    free (d); /* освобождение памяти массива d */
+	return -1;
+}
+
+int naive(char *y, char *x, int N,int M)
+{
+	int i, j, k;
+	for(i=0,j=0;i<N; i++) //Цикл для прохождения по Text
+	{
+		while (x[j]!=y[i])
+		{
+			x[j + 1] = x[j];
+		}
+		if (x[j]==y[i])
+		{
+			j++;
+		}
+		if (j==M)
+        {
+            return i-j+1;
+        }
+	}
+	return -1;
+}
